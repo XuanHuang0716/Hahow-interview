@@ -9,7 +9,7 @@ import { Typography } from "@mui/material";
 export default function HeroList() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <HeroCardList />
+      <HeroCardList id={0} />
       <Typography fontSize={30} color="white">
         Choose your hero to add his abilities.
       </Typography>

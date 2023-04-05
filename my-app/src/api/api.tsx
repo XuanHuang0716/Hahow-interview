@@ -50,3 +50,12 @@ export const getHeroProfile = async (id: string): Promise<GetHeroProfileResponse
   };
   return await apiRequest(config);
 }
+
+export const updateHeroProfile = async (id: string, data: GetHeroProfileResponseData): Promise<GetHeroProfileResponseData> => {
+  const config: AxiosRequestConfig = {
+    method: "PATCH",
+    url: `/heroes/${id}/profile`,
+    data,
+  };
+  return await apiRequest(config);
+}

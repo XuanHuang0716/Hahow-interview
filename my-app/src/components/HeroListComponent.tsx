@@ -1,10 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 // router import
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //material ui import
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -19,6 +18,14 @@ interface CustomCardProps {
   name: string;
   buttonAction: () => void;
 }
+
+interface HeroCardListProps {
+  id: number;
+}
+
+interface StyledGridProps {
+    elementId: number;
+  }
 
 const CustomHeroCard = ({ imgPath, name, buttonAction }: CustomCardProps) => {
   return (
@@ -35,22 +42,17 @@ const CustomHeroCard = ({ imgPath, name, buttonAction }: CustomCardProps) => {
   );
 };
 
-
-interface StyledGridProps {
-    elementId: number;
-}
-
-const HeroCardList = () => {
+const HeroCardList = ({ id }: HeroCardListProps) => {
   const [heroList, setHeroList] = useState<GetHeroResponseData>();
-  let { heroId } = useParams()
-  const [selectedHero, setSelectedHero] = useState<number>(Number(heroId))
-  const navigate = useNavigate(); 
-  
+  //   let { heroId } = useParams()
+  const [selectedHero, setSelectedHero] = useState<number>(0);
+  const navigate = useNavigate();
+
   useEffect(() => {
     getHeroes().then((res) => {
       setHeroList(res);
     });
-  },[]);
+  }, []);
 
   const StyledBox = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -60,7 +62,8 @@ const HeroCardList = () => {
 
   const StyledGrid = styled(Grid)<StyledGridProps>`
     margin: 16px;
-    border: ${(props) => props.elementId === selectedHero  && "10px solid #FF0000"};
+    border: ${(props) =>
+      props.elementId === selectedHero && "10px solid #FF0000"};
   `;
 
   const CustomCardwithStyle = styled(CustomHeroCard)(({ theme }) => ({
@@ -68,12 +71,10 @@ const HeroCardList = () => {
     textAlign: "center",
   }));
 
-  
-
-  const clickCardAction = (id:number) => {
+  const clickCardAction = (id: number) => {
     setSelectedHero(id);
     navigate(`/heroes/${id}`);
-  }
+  };
 
   const heroListMemo = useMemo(
     () => (
@@ -86,14 +87,14 @@ const HeroCardList = () => {
                 <CustomCardwithStyle
                   imgPath={image}
                   name={name}
-                  buttonAction={()=> clickCardAction(id)}
+                  buttonAction={() => clickCardAction(id)}
                 />
               </StyledGrid>
             );
           })}
       </StyledBox>
     ),
-    [StyledGrid,heroList]
+    [StyledGrid, heroList]
   );
 
   return <>{heroListMemo}</>;
