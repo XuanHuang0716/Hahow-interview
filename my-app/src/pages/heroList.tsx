@@ -1,25 +1,18 @@
-import React from 'react';
+import React, { useState } from "react";
 // material ui import
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
+import Box from "@mui/material/Box";
 
 //component import
-import HeroCardList from 'components/HeroListComponent';
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+import HeroCardList from "components/HeroListComponent";
+import { Typography } from "@mui/material";
 
 export default function HeroList() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <HeroCardList/>
+      <HeroCardList />
+      <Typography fontSize={30} color="white">
+        Choose your hero to add his abilities.
+      </Typography>
     </Box>
   );
 }

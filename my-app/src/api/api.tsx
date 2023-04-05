@@ -20,7 +20,7 @@ export const apiRequest = async (config: AxiosRequestConfig) => {
 // hero list api
 
 export type GetHeroResponseData = {
-  id: string;
+  id: number;
   name: string;
   image: string;
 }[];
